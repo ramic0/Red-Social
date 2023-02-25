@@ -11,3 +11,6 @@ def dashboard(request):
 
 def perfil(request):
     return render(request, 'base/perfil.html', {})
+
+def editarPerfil(request):
+    return render(request, 'base/editarPerfil.html')
