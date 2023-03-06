@@ -6,4 +6,9 @@
 <p> {{post.time}} </p> 
 <p>  {{post.content}} </p>
 
+<hr>
+
+<a href="{% url 'perfil_view' id=perfil.id %}"> Ver mi perfil</a>
+
 {% endfor %}
+<a href="{% url 'crearPost' %}"> Crear Post</a>

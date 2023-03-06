@@ -1,0 +1,21 @@
+{% extends 'layout/base.html' %}
+
+{% block 'title' %} Crear Post {% endblock %}
+
+{% load static %}
+
+{% block 'content' %}
+
+<form method="POST">
+        {% csrf_token %} 
+        {% for form in form.visible_fields %}  
+        <table>
+          <label>{{form.label}}</label>
+            {{form}}
+        </table>
+        {% endfor %}  
+        <hr>                     
+      <input type="submit" value="Registar" />
+</form>
+
+{% endblock %}
