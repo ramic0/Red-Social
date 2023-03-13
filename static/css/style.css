@@ -1,0 +1,61 @@
+:root {
+    --color-primary:#ff8b08;
+    --color-secondary:#0c4888;
+    --color-text:#2c404f;
+    --font-main: Knight;
+    --font-text: Ambra-Sans-Bold-trial;
+}
+
+* {
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: var(--font-text);
+    color: var(--color-text);
+}
+
+@font-face {
+    font-family: Knight;
+    src: url('../fonts/Knight\ Vision.otf');
+}
+
+@font-face {
+    font-family: Ambra-Sans-Bold-trial;
+    src: url('../fonts/Ambra-Sans-Bold-trial.ttf');
+}
+
+.h1 {
+    font-family: var(--font-main);
+}
+
+article{
+	width: 93%;
+	margin: auto;
+	padding: 40px 0;
+	border-bottom: 2px solid #ECEEEF;
+}
+
+.container-article{
+  display: flex;
+}
+
+.container-article img{
+  height: 68px;
+  width: 68px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+article:last-child {
+  border-bottom: 0;
+}
+
+time {
+  font-size: .8rem;
+  opacity: .7;
+}
+
+.post{
+	font-size: .94rem;
+}
+
