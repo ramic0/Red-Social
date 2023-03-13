@@ -1,0 +1,35 @@
+{% extends 'layout/base.html' %}
+
+{% block 'title' %} Ver Post {% endblock %}
+
+{% block 'content' %}
+
+<h1>Post Detail</h1>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{message.tags}}"{% endif %}>{{message}}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<ul>
+    <li>
+        <p>{{post.content}}</p>
+    </li>
+</ul>
+
+<form method="POST">
+    {% csrf_token %}
+    {{form}}
+    <button type="submit">Actualizar</button>
+</form>
+
+<form action="{% url 'post_delete' post.id%}" method="POST">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+</form>
+
+
+{% endblock%}
