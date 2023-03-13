@@ -1,0 +1,40 @@
+{% extends 'layout/base.html' %}
+
+{% block 'title' %} Login {% endblock %}
+
+{% block 'content' %}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{message.tags}}"{% endif %}>{{message}}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<div class="container col-xl-10 col-xxl-8 px-4 py-5">
+    <div class="row align-items-center g-lg-5 py-5">
+      <div class="col-lg-7 text-center text-lg-start">
+        <h1 class="display-4 fw-bold lh-1 mb-3">REDSON</h1>
+        <p class="col-lg-10 fs-4">Comparte tus intereses con tus amigos y diviértete</p>
+      </div>
+      <div class="col-md-10 mx-auto col-lg-5">
+        <form class="p-4 p-md-5 border rounded-3 bg-light" method="POST">
+            {% csrf_token %}
+            {{form.as_p}} 
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Iniciar sesión</button>
+            <hr class="my-4">
+            <button class="w-100 btn btn-lg btn-outline-success" type="submit"><a href="{% url 'signup' %}" class="nav-link px-2">Crear cuenta nueva</a></button>
+        </form>
+      </div>
+      <div class="col-md-10 mx-auto col-lg-5">
+        
+      </div>
+    </div>
+  </div>
+
+{% endblock%}
+
+
+
+
