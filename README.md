@@ -3,35 +3,48 @@ Aplicación web de una Red social con Django
 
 ### Para utilizarlo/configurarlo:
 
-1. Clona el repositorio o descargalo como zip.
+1. Crear una carpeta 
+```
+mkdir redsocial
+```
+2. Ingrese a la carpeta creada
+```
+cd redsocial
+```
+3. Clona el repositorio o descargalo como zip.
 ```
 git clone https://github.com/ramic0/Red-Social.git
 ```
-
-2. Crea un ambiente virtual
+4. Ingrese a la carpeta Red-Social
+```
+cd Red-Social
+```
+5. Crea un ambiente virtual
 ```
 python -m venv redsonenv
 ```
-3. Activa el ambiente virtual / windows
+6. Activa el ambiente virtual / windows
 ```
 redsonenv\scripts\activate
 ```
-4. Instala las dependencias/librerias en requirements.txt
+7. Instala las dependencias/librerias en requirements.txt
 ```
 pip install -r requirements.txt
 ```
-5. Ejecuta las migraciones.
+8. Ejecuta las migraciones.
 ```
 python manage.py makemigrations 
+```
+```
 python manage.py migrate
 ```
 
-6. Crea un superusuario.
+9. Crea un superusuario.
 ```
 python manage.py createsuperuser
 ```
 
-7. Corre el servidor.
+10. Corre el servidor.
 ```
 python manage.py runserver
 ```
