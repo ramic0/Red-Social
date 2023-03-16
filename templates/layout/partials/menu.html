@@ -7,22 +7,72 @@
       </a>
 
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="{% url 'muro' %}" class="nav-link px-2 link-secondary">Muro</a></li>
-        <li><a href="{% url 'ver_post' %}" class="nav-link px-2 link-dark">Post</a></li>
-        <li><a href="{% url 'crearPost' %}" class="nav-link px-2 link-dark">Crear post</a></li>
-        <li><a href="{% url 'completar_perfil' %}" class="nav-link px-2 link-dark">Perfil</a></li>
-      </ul>
+        <li><a href="{% url 'muro' %}" class="nav-link px-2 link-secondary">
+          <i class="bi bi-house"  style="font-size: 2rem; color: cornflowerblue;"></i>
+          Muro
+        </a></li>
+        <li><a href="{% url 'ver_post' %}" class="nav-link px-2 link-dark">
+          <i class="bi bi-file-post" style="font-size: 2rem; color: cornflowerblue;"></i>
+          Post
+        </a></li>
+        <li><a href="{% url 'crearPost' %}" class="nav-link px-2 link-dark">
+          <i class="bi bi-pencil-square" style="font-size: 2rem; color: cornflowerblue;"></i>
+          Crear post</a></li>
+        <div class="dropdown text-end">
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-cloud-upload" style="font-size: 2rem; color: cornflowerblue;"></i>
+          </a>
+          <ul class="dropdown-menu text-small">
+            <div uk-dropdown="pos: top-right;mode:click ; animation: uk-animation-slide-bottom-small" class="header_dropdown">
+            <div class="px-4 py-3 -mx-5 -mt-4 mb-5 border-b">
+              <h4>Subir foto</h4>
+            </div>
+            <div class="flex justify-center flex-center text-center">
+              <div class="flex flex-col choose-upload text-center">
+                  <form action="upload" method="POST" enctype="multipart/form-data" >
+                      {% csrf_token %}
+                 <p class="my-3 leading-6"> Subir foto
+                 </p>
+                 <div>
+                     <input type="file" name="image_upload">
+                     <!-- <a href="#" class="button soft-warning small"> Choose file</a> -->
+                     <textarea class="button soft-warning small" name="caption" placeholder="caption..." ></textarea>
+                     <br>
+                     <button class="button bg-blue-700" type="submit" >Subir</button>
+                 </div>
+                 </form>
+             </div>
 
-      <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-        <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-      </form>
+             <div class="uk-flex uk-flex-column choose-upload" hidden>
+                 <div class="mx-auto flex flex-col h-24 items-center justify-center relative w-full rounded-lg">
+                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-12">
+                         <path fill-rule="evenodd" d="M2 9.5A3.5 3.5 0 005.5 13H9v2.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 15.586V13h2.5a4.5 4.5 0 10-.616-8.958 4.002 4.002 0 10-7.753 1.977A3.5 3.5 0 002 9.5zm9 3.5H9V8a1 1 0 012 0v5z" clip-rule="evenodd" />
+                     </svg>
+                 </div>
+                 <p class="my-3 leading-6"> Import videos from YouTube <br> Copy / Paste your video link here </p>
+                 <form class="uk-grid-small" uk-grid>
+                     <div class="uk-width-expand">
+                         <input type="text" class="uk-input uk-form-small  bg-gray-200 " style="box-shadow:none" placeholder="Paste link">
+                     </div>
+                     <div class="uk-width-auto"> <button type="submit" class="button soft-warning -ml-2">
+                             Import </button> </div>
+                 </form>
+                 <a href="#" class="uk-text-muted mt-3 uk-link"
+                     uk-toggle="target: .choose-upload ; animation: uk-animation-slide-left-small, uk-animation-slide-right-medium; queued: true">
+                     Or Upload Video </a>
+             </div>
+            </div>
+         </div>
+          </ul>
+        </div>
+      </ul>
 
       <div class="dropdown text-end">
         <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="{{Perfil.avatar.url}}" alt="mdo" width="32" height="32" class="rounded-circle">
+          <img src="{{user_perfil.avatar.url}}" alt="mdo" width="32" height="32" class="rounded-circle">
         </a>
         <ul class="dropdown-menu text-small">
-          <li><a class="dropdown-item" href="#">Configuración</a></li>
+          <li><a class="dropdown-item" href="{% url 'settings' %}">Configuración</a></li>
           <li><a class="dropdown-item" href="{% url 'ver_perfil' %}">Perfil</a></li>
           <li><hr class="dropdown-divider"></li>
           <li><a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a></li>
