@@ -1,0 +1,29 @@
+{% extends 'layout/base.html' %}
+
+{% load static %}
+
+{% block 'title' %} Muro {% endblock %}
+
+{% block 'content' %}
+
+{% include 'layout/partials/menu.html'%}
+
+
+<h1>Muro</h1>
+
+
+{% for post in posts reversed %}
+<article>
+    <div class="container-article">
+        <div>
+            <h2 class="username"><a href="{% url 'profile' post.user.username %}">@{{post.user.username }}</a></h2>
+            <i class="clock"></i>
+            <time data-time="#">{{ post.timestamp}}</time>
+            <div class="post">{{ post.content }}</div>
+        </div>   
+    </div>
+</article>
+{% endfor %}
+
+
+{% endblock%}
