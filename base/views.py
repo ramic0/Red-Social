@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 def index(request):
     return render(request, 'base/home.html')
@@ -32,23 +33,8 @@ def recuperar_perfil(request,id):
     }
     return render(request, 'base/perfil.html', context)
 
-@login_required
-def crearPost(request):
-    if request.method == 'GET':
-        form = PostForm()
-        context = {
-            'form':form
-        }
-        return render(request, 'base/CrearPost.html', context)
-    
-    if request.method == 'POST':
-        form = PostForm(request.POST)
-        if form.is_valid:
-            form.save()
-        return redirect('home')
+
 
 def editarPerfil(request):
     return render(request, 'base/editarPerfil.html')
 
-def login(request):
-    return render(request, 'base/login.html',{})
