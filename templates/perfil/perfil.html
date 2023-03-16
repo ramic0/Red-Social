@@ -1,0 +1,57 @@
+{% extends 'layout/base.html' %}
+
+{% load static %}
+
+{% block 'content' %}
+
+{% include 'layout/partials/menu.html'%}
+
+{% for perfil in perfils %}
+
+<div class="container-fluid">
+	<div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('{% static 'img/curved-images/curved0.jpg' %}'); background-position-y: 50%;">
+	  <span class="mask bg-gradient-primary opacity-6"></span>
+	</div>
+	<div class="card card-body blur shadow-blur mx-4 mt-n6 overflow-hidden">
+	  <div class="row gx-4">
+		<div class="col-auto">
+		  <div class="avatar avatar-xl position-relative">
+			<img src="{{perfil.avatar.url}}" alt="profile_image" width="70" height="65" class="rounded-circle">
+		  </div>
+		</div>
+		<div class="col-auto my-auto">
+		  <div class="h-100">
+			<h5 class="mb-1">
+				{{perfil.user}}
+			</h5>
+			<p class="mb-0 font-weight-bold text-sm">
+				{{perfil.name}}
+				{{perfil.apellido}}
+			</p>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </div>
+  <div class="container-fluid py-4">
+	<div class="card">
+		<h5 class="card-header">Perfil</h5>
+		<div class="card-body">
+		<h5 class="card-title">Bio</h5>
+		  <p class="card-text">{{perfil.bio}}</p>
+		  <hr class="horizontal gray-light my-4">
+		  <h5 class="card-title">Nombre</h5>
+		  <p class="card-text">{{perfil.name}}</p>
+		  <h5 class="card-title">Apellido</h5>
+		  <p class="card-text">{{perfil.apellido}}</p>
+		  <h5 class="card-title">Correo Electronico</h5>
+		  <p class="card-text">{{perfil.email}}</p>
+		  <a href="{% url 'settings' %}" class="btn btn-primary">Modificar</a>
+		</div>
+	</div>
+  </div>
+</div>
+
+{% endfor %}
+{% endblock%}
+
