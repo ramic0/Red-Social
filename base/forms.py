@@ -5,9 +5,10 @@ from django.contrib.auth.models import User
 from django import forms
 
 class PostForm(ModelForm):
+    content = forms.CharField(label='Que estas pensando....', widget=forms.Textarea(attrs={'class':'form-control'}))
     class Meta:
         model = Post
-        exclude = ('user'),
+        fields= ['content']
 
 #class UserRegisterForm(UserCreationForm):
 #    email = forms.EmailField()
