@@ -2,7 +2,7 @@
     --color-primary:#ff8b08;
     --color-secondary:#0c4888;
     --color-text:#2c404f;
-    --font-main: Brutus Academy;
+    --font-main: Robot Mono;
     --font-text: Ambra-Sans-Bold-trial;
 }
 
@@ -32,6 +32,11 @@
 @font-face {
   font-family: Brutus Academy;
   src: url('../fonts/Brutus Academy.ttf');
+}
+
+@font-face {
+  font-family: Robot Mono;
+  src: url('../fonts/RobotoMono-Light.ttf');
 }
 
 
