@@ -2,45 +2,148 @@
 
 {% load static %}
 
-{% block content %}
-
-{% include 'layout/partials/menu.html'%}
-
-<!-- Profile -->
-<div class="profile">
-	<img src="{{post.user.avatar.url }}">
-	<h2>@{{ user.username }}</h2>
-
-	{% if request.user.is_authenticated %}
-		{% if user.username != request.user.username %}
-			{% if user not in request.user.profile.following %}
-			<button><a class="follow-button" href="{% url 'follow' user %}">Follow</a></button>
-			{% else %}
-			<button><a class="follow-button" href="{% url 'unfollow' user %}">Unfollow</a></button>
-			{% endif %}
-		{% endif %}
-	{% endif %}
+{% block 'content' %}
+{% if user.is_authenticated %}
+	{% include 'layout/partials/menu.html'%}
+	<div class="container text-center py-5">
+		<div class="row">
+		  <div class="col-sm-3">
+			<a class="d-block link-dark text-decoration-none">
+				<img src="{{user_profile.avatar.url}}" alt="mdo" width="200" height="200" class="rounded-circle">
+			</a>
+		  </div>
+		  <div class="col-sm-9">
+			<div class="row">
+			  <div class="col-8">
+				@{{user_profile.user.username}}
+				<form action="/follow" method="POST">
+					{% csrf_token %}
+					<input type="hidden" value="{{user.username}}" name="follower"/>
+					<input type="hidden" value="{{user_object.username}}" name="user"/>
+					{% if user_profile.user.username == user.username %}
+						<a class="btn btn-primary" href="{% url 'settings' %}">Account settings</a>
+					{% else %}
+						<button type="submit">{{button_text}}</div>
+					{% endif %}
+				</form>
+				<div class="row">
+					{% if user_post_length == 0 %}
+					<div class="col-6 col-md-4">No Publicaciones</div>
+					{% elif user_post_length == 1 %}
+					<div class="col-6 col-md-4">{{user_post_length}} Publicaciones</div>
+					{% else %}
+					<div class="col-6 col-md-4">{{user_post_length}} Publicaciones</div>
+					{% endif %}
+					<div class="col-6 col-md-4">{{user_followers}} Seguidores</div>
+					<div class="col-6 col-md-4">{{user_following}} Seguidos</div>
+				</div>
+				{{user_profile.name}} {{user_profile.apellido}}
+				<div>
+					{{user_profile.bio}}
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</div>
+	  </div>
 	
-	
-</div>
-
-<!-- Follow items -->
-<div class="follow">
-	<div>
-		<h5>Post</h5>
-		<p>{{user.posts.count}}</p>
+	  <div class="container text-center py-4">
+		<div class="row">
+		  <div class="col-sm-3">
+		  </div>
+		  <div class="col-sm-9">
+			<div class="row">
+			  <div class="col-8">
+				{% for post in user_posts %}
+					<div class="container p-4 bg-light text-center">
+						<div class="row">
+							<div class="col">
+								<div class="card shadow-sm">
+									<div class="d-flex justify-content-between align-items-center">
+										<small class="text-muted">{{post.time}}</small>
+									  </div>
+								  <div class="card-body">
+									<p class="card-text">{{post.content}}</p>
+								  </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			  </div>
+			</div>
+		  </div>
+		</div>
+	  </div>
+{% else %}
+<div class="container text-center py-5">
+	<div class="row">
+	  <div class="col-sm-3">
+		<a class="d-block link-dark text-decoration-none">
+			<img src="{{user_profile.avatar.url}}" alt="mdo" width="200" height="200" class="rounded-circle">
+		</a>
+	  </div>
+	  <div class="col-sm-9">
+		<div class="row">
+		  <div class="col-8">
+			@{{user_profile.user.username}}
+			<div class="row">
+				{% if user_post_length == 0 %}
+				<div class="col-6 col-md-4">No Publicaciones</div>
+				{% elif user_post_length == 1 %}
+				<div class="col-6 col-md-4">{{user_post_length}} Publicaciones</div>
+				{% else %}
+				<div class="col-6 col-md-4">{{user_post_length}} Publicaciones</div>
+				{% endif %}
+				<div class="col-6 col-md-4">1000 Seguidores</div>
+				<div class="col-6 col-md-4">2000 Seguidos</div>
+			</div>
+			{{user_profile.name}} {{user_profile.apellido}}
+			<div>
+				{{user_profile.bio}}
+			</div>
+		  </div>
+		</div>
+	  </div>
 	</div>
-	<div>
-		<h5>Followers</h5>
-		<p>{{ user.profile.followers.count }}</p>
+  </div>
 
+  <div class="container text-center py-4">
+	<div class="row">
+	  <div class="col-sm-3">
+	  </div>
+	  <div class="col-sm-9">
+		<div class="row">
+		  <div class="col-8">
+			{% for post in user_posts %}
+				<div class="container p-4 bg-light text-center">
+				    <div class="row">
+				        <div class="col">
+				            <div class="card shadow-sm">
+				                <div class="d-flex justify-content-between align-items-center">
+				                    <small class="text-muted">{{post.time}}</small>
+				                  </div>
+				              <div class="card-body">
+				                <p class="card-text">{{post.content}}</p>
+				              </div>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+			{% endfor %}
+		  </div>
+		</div>
+	  </div>
 	</div>
-	<div>
-		<h5>Following</h5>
-		<p>{{ user.profile.following.count }}</p>
-	</div>
-</div>
+  </div>
 
+
+{% endif %}
+
+
+
+
+  
 
 
 {% endblock %}
