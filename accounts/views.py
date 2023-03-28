@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect,get_object_or_404
-from base.models import Perfil,Post
+from django.shortcuts import render, redirect, get_object_or_404
+from base.models import Perfil,Post, FollowersCount
 from .models import Relationship
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
@@ -8,6 +8,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from accounts.forms import PerfilForm
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 
 def signup(request):
         if request.method =='GET':
@@ -88,33 +89,33 @@ def ver_perfil(request):
     perfils= Perfil.objects.filter(user=request.user)
     return render(request, 'perfil/perfil.html', {'perfils':perfils})
 
-def profile(request, username=None):
-	current_user = request.user
-	if username and username != current_user.username:
-		user = Perfil.objects.get(user=request.user)
-		posts = Post.objects.all()
-	else:
-		user = Perfil.objects.get(user=request.user)
-		posts = Post.objects.all()
-	return render(request, 'perfil/profile.html', {'user':user, 'posts':posts})
+def profile(request, pk):
+    user_object = User.objects.get(username=pk)
+    user_profile = Perfil.objects.get(user=user_object)
+    user_posts = Post.objects.filter(user=user_object)
+    user_post_length = len(user_posts)
 
-def follow(request, username):
-	current_user = request.user
-	to_user = User.objects.get(username=username)
-	to_user_id = to_user
-	rel = Relationship(from_user=current_user, to_user=to_user_id)
-	rel.save()
-	messages.success(request, f'sigues a {username}')
-	return redirect('muro')
+    follower = request.user.username
+    user = pk
+    if FollowersCount.objects.filter(follower=follower, user=user).first():
+        button_text = 'Unfollow'
+    else:
+        button_text = 'Follow'
 
-def unfollow(request, username):
-	current_user = request.user
-	to_user = User.objects.get(username=username)
-	to_user_id = to_user.id
-	rel = Relationship.objects.filter(from_user=current_user.id, to_user=to_user_id).get()
-	rel.delete()
-	messages.success(request, f'Ya no sigues a {username}')
-	return redirect('muro')
+    user_followers = len(FollowersCount.objects.filter(user=pk))
+    user_following = len(FollowersCount.objects.filter(follower=pk))
+
+    context = {
+        'user_object': user_object,
+        'user_profile' : user_profile,
+        'user_posts':user_posts,
+        'user_post_length': user_post_length,
+        'button_text':button_text,
+        'user_followers': user_followers, 
+        'user_following': user_following
+    }
+    return render(request, 'perfil/profile.html', context)
+
 
 @login_required   
 def upload(request):
