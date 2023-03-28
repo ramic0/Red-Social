@@ -9,11 +9,9 @@ urlpatterns = [
     path('signup/', views.signup, name='signup' ),
     path('login/', LoginView.as_view(), name='login' ),
     path('perfil/', views.ver_perfil, name='ver_perfil' ),
-    path('profile/<str:username>/', views.profile, name='profile'),
+    path('profile/<str:pk>/', views.profile, name='profile'),
     path('logout/', views.signout, name='logout' ),
     path('signin/', views.signin, name='signin' ),
     path('settings/', views.settings, name='settings' ),
     path('upload', views.upload, name='upload'),
-    path('follow/<str:username>/', views.follow, name='follow'),
-    path('unfollow/<str:username>/', views.unfollow, name='unfollow'),
 ]
